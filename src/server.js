@@ -4,6 +4,8 @@ import { fileURLToPath } from 'url';
 import express from 'express';
 import cors from 'cors';
 import {createProxyMiddleware} from "http-proxy-middleware";
+import swaggerUi from 'swagger-ui-express';
+import { specs } from './config/swagger.js'
 
 import foodRouter from './routers/food.router.js';
 import userRouter from './routers/user.router.js';
@@ -26,6 +28,8 @@ app.use(
     origin: ['http://localhost:3000'],
   })
 );
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 
 app.use('/api/foods', foodRouter);
